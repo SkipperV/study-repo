@@ -21,7 +21,7 @@ public class Automation {
         driver.quit();
     }
     @Test
-    public void checkSubmit() {
+    public void checkSubmit() throws InterruptedException {
         driver.get("https://demoqa.com/text-box");
 
         driver.findElement(By.xpath("//input[@id='userName']")).sendKeys("Vlad Tymchuk");
@@ -31,21 +31,17 @@ public class Automation {
         driver.findElement(By.xpath("//button[@id='submit']")).click();
 
         Assert.assertTrue(driver.findElement(By.xpath("//p[@id='name']")).isEnabled());
-
-//        driver.quit();
     }
 
-//    @Test
-//    public void checkCheckBox() throws InterruptedException {
-//        driver.get("https://demoqa.com/checkbox");
-//
-//        driver.findElement(By.xpath("//label[@for='tree-node-home']/preceding-sibling::button")).click();
-////        driver.findElement(By.xpath("//label[@for='tree-node-desktop']//svg[contains(@class, 'rct-icon-check')]")).click();
-//        driver.findElement(By.xpath("//label[@for='tree-node-desktop']//child::span")).click();
-//        driver.findElement(By.xpath("//label[@for='tree-node-desktop']/preceding-sibling::button")).click();
-//
-//        sleep(2000);
-//        Assert.assertTrue(driver.findElement(By.xpath("//label[@for='tree-node-notes']")).is());
-////        driver.quit();
-//    }
+    @Test
+    public void checkCheckBox() throws InterruptedException {
+        driver.get("https://demoqa.com/checkbox");
+
+        driver.findElement(By.xpath("//label[@for='tree-node-home']/preceding-sibling::button")).click();
+        driver.findElement(By.xpath("//label[@for='tree-node-desktop']//child::span")).click();
+        driver.findElement(By.xpath("//label[@for='tree-node-desktop']/preceding-sibling::button")).click();
+
+        Assert.assertTrue(driver.findElement(By.xpath("//label[@for='tree-node-notes']//*[@class='rct-icon rct-icon-check']")).isDisplayed());
+        Assert.assertTrue(driver.findElement(By.xpath("//label[@for='tree-node-commands']//*[@class='rct-icon rct-icon-check']")).isDisplayed());
+    }
 }
