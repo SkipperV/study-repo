@@ -4,7 +4,7 @@ import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class RadioButtonTest extends initMethods {
+public class RadioButtonTest extends InitMethods {
 
     @Test
     public void test_radioButton() {
