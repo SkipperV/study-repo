@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 public class TextBoxTest extends initMethods {
 
     @Test
-    public void checkSubmit() {
+    public void test_Submit() {
         driver.get("https://demoqa.com/text-box");
 
         driver.findElement(By.xpath("//input[@id='userName']")).sendKeys("Vlad Tymchuk");

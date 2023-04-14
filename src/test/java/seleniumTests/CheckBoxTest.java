@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 public class CheckBoxTest extends initMethods {
 
     @Test
-    public void checkCheckBox() {
+    public void test_CheckBox() {
         driver.get("https://demoqa.com/checkbox");
 
         driver.findElement(By.xpath("//label[@for='tree-node-home']/preceding-sibling::button")).click();
