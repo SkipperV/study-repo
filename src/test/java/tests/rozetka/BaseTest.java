@@ -16,7 +16,7 @@ public class BaseTest {
 
     @AfterMethod
     public void closeWindow() {
-//        driver.quit();
+        driver.quit();
     }
 
     public void openPage(String url) {
