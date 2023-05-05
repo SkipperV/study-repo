@@ -3,6 +3,7 @@ package pages.rozetka;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 
 public class HeaderPage extends BasePage {
 
@@ -78,5 +79,16 @@ public class HeaderPage extends BasePage {
 
     public void openCatalog() {
         getCatalogButton().click();
+    }
+
+    public void openTabletsApplePage() {
+        openCatalog();
+        Actions actions = new Actions(driver);
+
+        actions
+                .moveToElement(getMenuCategoryLaptopsAndPCs())
+                .moveToElement(getMenuItemTabletsAppleIPad())
+                .click()
+                .perform();
     }
 }

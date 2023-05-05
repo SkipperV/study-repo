@@ -16,10 +16,10 @@ public class BaseTest {
 
     @AfterMethod
     public void closeWindow() {
-        driver.quit();
+//        driver.quit();
     }
 
-    public void openRozetka(String url) {
+    public void openPage(String url) {
         driver.get(url);
     }
 
