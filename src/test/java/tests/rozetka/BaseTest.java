@@ -19,7 +19,7 @@ public class BaseTest {
         driver.quit();
     }
 
-    public void openRozetka(String url) {
+    public void openPage(String url) {
         driver.get(url);
     }
 

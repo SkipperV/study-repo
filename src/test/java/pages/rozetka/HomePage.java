@@ -12,7 +12,6 @@ public class HomePage extends BasePage {
 
     public HomePage(WebDriver driver) {
         super(driver);
-        HeaderPage headerPage = new HeaderPage(driver);
     }
 
     public List<WebElement> getItemsTitlesList() {
