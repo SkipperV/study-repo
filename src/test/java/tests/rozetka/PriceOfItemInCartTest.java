@@ -7,27 +7,26 @@ import pages.rozetka.HeaderPage;
 import pages.rozetka.ItemMainPage;
 import pages.rozetka.ItemsListPage;
 
-public class AddToCartButtonTest extends BaseTest{
+public class PriceOfItemInCartTest extends BaseTest{
 
     @Test
-    public void checkAddToCartButton() throws InterruptedException {
+    public void checkEqualityOfItemPrice() throws InterruptedException {
         openPage("https://rozetka.com.ua/ua/");
 
         HeaderPage headerPage = new HeaderPage(driver);
         ItemsListPage itemsListPage = new ItemsListPage(driver);
         ItemMainPage itemMainPage = new ItemMainPage(driver);
         CartPage cartPage = new CartPage(driver);
-        String itemNameInPage;
-        String itemNameInCart;
+        String itemPriceInPage;
+        String itemPriceInCart;
 
         headerPage.openTabletsApplePage();
         itemsListPage.openPageOfFirstItem();
 
-        itemNameInPage=itemMainPage.getItemName();
+        itemPriceInPage=itemMainPage.getItemPrice();
         itemMainPage.clickBuyButton();
-        itemNameInCart=cartPage.getFirstItemInCartName();
+        itemPriceInCart=cartPage.getFirstItemInCartPrice();
 
-        Assert.assertEquals(itemNameInPage, itemNameInCart);
-        Assert.assertTrue(cartPage.getCheckoutButton().isEnabled());
+        Assert.assertEquals(itemPriceInPage, itemPriceInCart);
     }
 }

@@ -11,6 +11,7 @@ public class ItemMainPage extends BasePage {
     private static final String REVIEWS_TAB = "//a[text()=' Характеристики ']";
     private static final String BUY_BUTTON = "//span[@class='buy-button__label ng-star-inserted']";
     private static final String ITEM_NAME = "//h1[@class='product__title']";
+    private static final String ITEM_CURRENT_PRICE = "//p[contains(@class, 'product-price__big')]";
 
     public ItemMainPage(WebDriver driver) {
         super(driver);
@@ -32,8 +33,16 @@ public class ItemMainPage extends BasePage {
         return getVisibleElementByXpath(ITEM_NAME);
     }
 
+    public WebElement getItemPriceElement() {
+        return getVisibleElementByXpath(ITEM_CURRENT_PRICE);
+    }
+
     public String getItemName() {
         return getItemTitle().getText().strip();
+    }
+
+    public String getItemPrice() {
+        return getItemPriceElement().getText().strip();
     }
 
     public void clickBuyButton() {
