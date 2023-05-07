@@ -77,11 +77,12 @@ public class HeaderPage extends BasePage {
         return driver.findElement(By.xpath(MENU_ITEM_POWERBANKS));
     }
 
-    public void openCatalog() {
+    public void openCatalog() throws InterruptedException {
         getCatalogButton().click();
+        Thread.sleep(200);
     }
 
-    public void openTabletsApplePage() {
+    public void openTabletsApplePage() throws InterruptedException {
         openCatalog();
         Actions actions = new Actions(driver);
 
