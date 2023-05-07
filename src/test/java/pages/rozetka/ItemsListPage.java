@@ -8,11 +8,14 @@ import java.util.List;
 public class ItemsListPage extends BasePage {
 
     private static final String SHOWN_ITEMS_QUANTITY = "//p[@class='catalog-selection__label ng-star-inserted']";
+    private static final String SORTING_DROPLIST = "//select[@class='select-css ng-untouched ng-pristine ng-valid ng-star-inserted']";
+    private static final String SORTING_DROPLIST_RULES_LIST = "//select/option";
     private static final String ITEMS_NAMES_LIST = "//span[@class='goods-tile__title']";
     private static final String ITEMS_DISCOUNT_CURRENT_PRICES_LIST = "//div[@class='goods-tile__price price--red ng-star-inserted']//span[@class='goods-tile__price-value']";
     private static final String ITEMS_DISCOUNT_OLD_PRICES_LIST = "//div[contains(@class, 'goods-tile__price--old')]";
     private static final String ITEMS_ALL_CURRENT_PRICES_LIST = "//span[@class='goods-tile__price-value']";
     private static final String ITEMS_AVAILABILITY_AVAILABLE = "//div[contains(@class, 'goods-tile__availability--available')]";
+    private static final String ITEMS_AVAILABILITY_WAITING_FOR_SUPPLY = "//div[@class='goods-tile__availability goods-tile__availability--waiting_for_supply ng-star-inserted']";
     private static final String FILTERS_LIST = "//a[@class='checkbox-filter__link']";
     private static final String FILTERS_ITEMS_QUANTITY_LIST = "//a[@class='checkbox-filter__link']/span";
     private static final String FILTERS_ACTIVE_LIST = "//a[@class='catalog-selection__link']";
@@ -24,7 +27,7 @@ public class ItemsListPage extends BasePage {
     private static final String FILTER_PRICE_APPLY_BUTTON = "//button[@type='submit']";
     private static final String FILTER_STATUS_IN_STOCK = "//a[@data-id='Є в наявності']";
     private static final String FILTER_STATUS_RUNNING_OUT = "//a[@data-id='Закінчується']";
-    private static final String FILTER_STATUS_EXPECTED = "//a[@data-id='Очікується']";
+    private static final String FILTER_STATUS_WAITING_FOR_SUPPLY = "//a[@data-id='Очікується']";
     private static final String FILTER_STATUS_OUT_OF_STOCK = "//a[@data-id='Немає в наявності']";
     private static final String FILTER_STATUS_RAN_OUT = "//a[@data-id='Закінчився']";
 
@@ -34,6 +37,14 @@ public class ItemsListPage extends BasePage {
 
     public WebElement getQuantityOfShownItemsContainer() {
         return getVisibleElementByXpath(SHOWN_ITEMS_QUANTITY);
+    }
+
+    public WebElement getSortingRuleDropList() {
+        return getVisibleElementByXpath(SORTING_DROPLIST);
+    }
+
+    public List<WebElement> getListOfSortingRules() {
+        return getListOfVisibleElementsByXpath(SORTING_DROPLIST_RULES_LIST);
     }
 
     public List<WebElement> getListOfNamesOfItems() {
@@ -55,6 +66,11 @@ public class ItemsListPage extends BasePage {
     public List<WebElement> getListOfItemsAvailableStatuses() {
         return getListOfVisibleElementsByXpath(ITEMS_AVAILABILITY_AVAILABLE);
     }
+
+    public List<WebElement> getListOfItemsWaitingForSupplyStatuses() {
+        return getListOfVisibleElementsByXpath(ITEMS_AVAILABILITY_WAITING_FOR_SUPPLY);
+    }
+
 
     public List<WebElement> getListOfFilters() {
         return getListOfVisibleElementsByXpath(FILTERS_LIST);
@@ -100,8 +116,8 @@ public class ItemsListPage extends BasePage {
         return getVisibleElementByXpath(FILTER_STATUS_RUNNING_OUT);
     }
 
-    public WebElement getFilterStatusExpected() {
-        return getVisibleElementByXpath(FILTER_STATUS_EXPECTED);
+    public WebElement getFilterStatusWaitingForSupply() {
+        return getVisibleElementByXpath(FILTER_STATUS_WAITING_FOR_SUPPLY);
     }
 
     public WebElement getFilterStatusOutOfStock() {
@@ -120,69 +136,8 @@ public class ItemsListPage extends BasePage {
         return getListOfItemsAvailableStatuses().size();
     }
 
-    public void openPageOfFirstItem() {
-        getListOfNamesOfItems().get(0).click();
-    }
-
-    public void clickFilterSellerRozetka() throws InterruptedException {
-        getFilterSellerRozetka().click();
-        Thread.sleep(1000);
-    }
-
-    public void clickFilterBrandSamsung() throws InterruptedException {
-        getFilterBrandSamsung().click();
-        Thread.sleep(1000);
-    }
-
-    public void clickFilterBrandXiaomi() throws InterruptedException {
-        getFilterBrandXiaomi().click();
-        Thread.sleep(1000);
-    }
-
-    public void typeInFilterMinimumPrice(String string) {
-        getFilterPriceMinimum().clear();
-        getFilterPriceMinimum().sendKeys(string);
-    }
-
-    public void typeInFilterMaximumPrice(String string) {
-        getFilterPriceMaximum().clear();
-        getFilterPriceMaximum().sendKeys(string);
-    }
-
-    public void clickSetFilterPriceApplyButton() {
-        getFilterPriceApplyButton().click();
-    }
-
-    public void setPriceFilter(int min, int max) throws InterruptedException {
-        typeInFilterMinimumPrice(Integer.toString(min));
-        typeInFilterMaximumPrice(Integer.toString(max));
-        clickSetFilterPriceApplyButton();
-        Thread.sleep(1000);
-    }
-
-    public void clickFilterStatusInStock() throws InterruptedException {
-        getFilterStatusInStock().click();
-        Thread.sleep(1000);
-    }
-
-    public void clickFilterStatusRunningOut() throws InterruptedException {
-        getFilterStatusRunningOut().click();
-        Thread.sleep(1000);
-    }
-
-    public void clickFilterStatusExpected() throws InterruptedException {
-        getFilterStatusExpected().click();
-        Thread.sleep(1000);
-    }
-
-    public void clickFilterStatusOutOfStock() throws InterruptedException {
-        getFilterStatusOutOfStock().click();
-        Thread.sleep(1000);
-    }
-
-    public void clickFilterStatusRanOut() throws InterruptedException {
-        getFilterStatusRanOut().click();
-        Thread.sleep(1000);
+    public int getQuantityOfWaitingForSupplyItems() {
+        return getListOfItemsWaitingForSupplyStatuses().size();
     }
 
     public boolean doesEveryItemContainStringInName(String string) {
@@ -255,10 +210,107 @@ public class ItemsListPage extends BasePage {
 
     public boolean isPriceFilterEnabled(int min, int max) {
         for (WebElement webElement : getListOfActiveFilters()) {
-            if (webElement.getText().contains(min+" - "+max)) {
+            if (webElement.getText().contains(min + " - " + max)) {
                 return true;
             }
         }
         return false;
+    }
+
+    public boolean areItemsSortedByAscendingPrice() {
+        List<WebElement> allPricesList = getListOfAllCurrentPricesOfItems();
+        int price;
+        int prevPrice = Integer
+                .parseInt(allPricesList.get(0)
+                        .getText()
+                        .replace(" ", "")
+                        .replace("₴", ""));
+        for (int i = 1; i < allPricesList.size(); i++) {
+            price = Integer
+                    .parseInt(allPricesList.get(i)
+                            .getText()
+                            .replace(" ", "")
+                            .replace("₴", ""));
+            if (price < prevPrice) {
+                if (!(getQuantityOfAvailableItems() == i - 1)) {
+                    if (!(getQuantityOfWaitingForSupplyItems() + getQuantityOfAvailableItems() == i - 1)) {
+                        return false;
+                    }
+                }
+            }
+            prevPrice = price;
+        }
+        return true;
+    }
+
+    public void openPageOfFirstItem() {
+        getListOfNamesOfItems().get(0).click();
+    }
+
+    public void clickFilterSellerRozetka() throws InterruptedException {
+        getFilterSellerRozetka().click();
+        Thread.sleep(1000);
+    }
+
+    public void clickFilterBrandSamsung() throws InterruptedException {
+        getFilterBrandSamsung().click();
+        Thread.sleep(1000);
+    }
+
+    public void clickFilterBrandXiaomi() throws InterruptedException {
+        getFilterBrandXiaomi().click();
+        Thread.sleep(1000);
+    }
+
+    public void typeInFilterMinimumPrice(String string) {
+        getFilterPriceMinimum().clear();
+        getFilterPriceMinimum().sendKeys(string);
+    }
+
+    public void typeInFilterMaximumPrice(String string) {
+        getFilterPriceMaximum().clear();
+        getFilterPriceMaximum().sendKeys(string);
+    }
+
+    public void clickSetFilterPriceApplyButton() {
+        getFilterPriceApplyButton().click();
+    }
+
+    public void setPriceFilter(int min, int max) throws InterruptedException {
+        typeInFilterMinimumPrice(Integer.toString(min));
+        typeInFilterMaximumPrice(Integer.toString(max));
+        clickSetFilterPriceApplyButton();
+        Thread.sleep(1000);
+    }
+
+    public void clickFilterStatusInStock() throws InterruptedException {
+        getFilterStatusInStock().click();
+        Thread.sleep(1000);
+    }
+
+    public void clickFilterStatusRunningOut() throws InterruptedException {
+        getFilterStatusRunningOut().click();
+        Thread.sleep(1000);
+    }
+
+    public void clickFilterStatusWaitingForSupply() throws InterruptedException {
+        getFilterStatusWaitingForSupply().click();
+        Thread.sleep(1000);
+    }
+
+    public void clickFilterStatusOutOfStock() throws InterruptedException {
+        getFilterStatusOutOfStock().click();
+        Thread.sleep(1000);
+    }
+
+    public void clickFilterStatusRanOut() throws InterruptedException {
+        getFilterStatusRanOut().click();
+        Thread.sleep(1000);
+    }
+
+    public void setSortByAscendingPrice() throws InterruptedException {
+        getSortingRuleDropList().click();
+        getListOfSortingRules().get(1).click();
+        Thread.sleep(1000);
     }
 }
