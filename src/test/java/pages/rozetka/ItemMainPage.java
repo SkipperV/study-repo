@@ -12,6 +12,7 @@ public class ItemMainPage extends BasePage {
     private static final String BUY_BUTTON = "//span[@class='buy-button__label ng-star-inserted']";
     private static final String ITEM_NAME = "//h1[@class='product__title']";
     private static final String ITEM_CURRENT_PRICE = "//p[contains(@class, 'product-price__big')]";
+    private static final String NOTIFY_WHEN_AVAILABLE_BUTTON = "//button[@_ngcontent-rz-client-c58]";
 
     public ItemMainPage(WebDriver driver) {
         super(driver);
@@ -19,6 +20,10 @@ public class ItemMainPage extends BasePage {
 
     public WebElement getReviewsTab() {
         return getVisibleElementByXpath(REVIEWS_TAB);
+    }
+
+    public WebElement getNotifyWhenAvailableButton() {
+        return getVisibleElementByXpath(NOTIFY_WHEN_AVAILABLE_BUTTON);
     }
 
     public List<WebElement> getListOfItemColors() {
