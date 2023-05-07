@@ -15,8 +15,9 @@ public class AvailabilityFilterTest extends BaseTest {
         ItemsListPage itemsListPage = new ItemsListPage(driver);
 
         headerPage.openTabletsApplePage();
-        itemsListPage.checkFilterStatusInStock();
+        itemsListPage.clickFilterStatusInStock();
 
         Assert.assertEquals(itemsListPage.getQuantityOfShownItems(), itemsListPage.getQuantityOfAvailableItems());
+        Assert.assertTrue(itemsListPage.isFilterStatusInStockEnabled());
     }
 }
