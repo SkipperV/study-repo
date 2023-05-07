@@ -19,6 +19,9 @@ public class ItemsListPage extends BasePage {
     private static final String FILTERS_SELLER_ROZETKA = "//a[@data-id='Rozetka']";
     private static final String FILTER_BRAND_SAMSUNG = "//a[@data-id='Samsung']";
     private static final String FILTER_BRAND_XIAOMI = "//a[@data-id='Xiaomi']";
+    private static final String FILTER_PRICE_MINIMUM = "//input[@formcontrolname='min']";
+    private static final String FILTER_PRICE_MAXIMUM = "//input[@formcontrolname='max']";
+    private static final String FILTER_PRICE_APPLY_BUTTON = "//button[@type='submit']";
     private static final String FILTER_STATUS_IN_STOCK = "//a[@data-id='Є в наявності']";
     private static final String FILTER_STATUS_RUNNING_OUT = "//a[@data-id='Закінчується']";
     private static final String FILTER_STATUS_EXPECTED = "//a[@data-id='Очікується']";
@@ -77,6 +80,18 @@ public class ItemsListPage extends BasePage {
         return getVisibleElementByXpath(FILTER_BRAND_XIAOMI);
     }
 
+    public WebElement getFilterPriceMinimum() {
+        return getVisibleElementByXpath(FILTER_PRICE_MINIMUM);
+    }
+
+    public WebElement getFilterPriceMaximum() {
+        return getVisibleElementByXpath(FILTER_PRICE_MAXIMUM);
+    }
+
+    public WebElement getFilterPriceApplyButton() {
+        return getVisibleElementByXpath(FILTER_PRICE_APPLY_BUTTON);
+    }
+
     public WebElement getFilterStatusInStock() {
         return getVisibleElementByXpath(FILTER_STATUS_IN_STOCK);
     }
@@ -124,6 +139,27 @@ public class ItemsListPage extends BasePage {
         Thread.sleep(1000);
     }
 
+    public void typeInFilterMinimumPrice(String string) {
+        getFilterPriceMinimum().clear();
+        getFilterPriceMinimum().sendKeys(string);
+    }
+
+    public void typeInFilterMaximumPrice(String string) {
+        getFilterPriceMaximum().clear();
+        getFilterPriceMaximum().sendKeys(string);
+    }
+
+    public void clickSetFilterPriceApplyButton() {
+        getFilterPriceApplyButton().click();
+    }
+
+    public void setPriceFilter(int min, int max) throws InterruptedException {
+        typeInFilterMinimumPrice(Integer.toString(min));
+        typeInFilterMaximumPrice(Integer.toString(max));
+        clickSetFilterPriceApplyButton();
+        Thread.sleep(1000);
+    }
+
     public void clickFilterStatusInStock() throws InterruptedException {
         getFilterStatusInStock().click();
         Thread.sleep(1000);
@@ -149,7 +185,7 @@ public class ItemsListPage extends BasePage {
         Thread.sleep(1000);
     }
 
-    public boolean doesEveryItemContainInName(String string) {
+    public boolean doesEveryItemContainStringInName(String string) {
         for (WebElement itemName : getListOfNamesOfItems()) {
             if (!itemName.getText().contains(string)) {
                 return false;
@@ -161,19 +197,38 @@ public class ItemsListPage extends BasePage {
     public boolean doesEveryItemOnSaleHaveLowerCurrentPrice() {
         List<WebElement> oldPrices = getListOfOldPricesOfItemsOnSale();
         List<WebElement> currentPrices = getListOfCurrentPricesOfItemsOnSale();
+        int oldPrice;
+        int currentPrice;
 
         for (int i = 0; i < oldPrices.size(); i++) {
-            int oldPrice = Integer
+            oldPrice = Integer
                     .parseInt(oldPrices.get(i)
                             .getText()
                             .replace(" ", "")
                             .replace("₴", ""));
-            int currentPrice = Integer
+            currentPrice = Integer
                     .parseInt(currentPrices.get(i)
                             .getText()
                             .replace(" ", "")
                             .replace("₴", ""));
             if (currentPrice >= oldPrice) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean isEveryItemPricePlacedInBounds(int min, int max) {
+        List<WebElement> allPricesList = getListOfAllCurrentPricesOfItems();
+        int price;
+
+        for (WebElement priceWebElement : allPricesList) {
+            price = Integer
+                    .parseInt(priceWebElement
+                            .getText()
+                            .replace(" ", "")
+                            .replace("₴", ""));
+            if (price < min || price > max) {
                 return false;
             }
         }
@@ -192,6 +247,15 @@ public class ItemsListPage extends BasePage {
     public boolean isFilterBrandXiaomiEnabled() {
         for (WebElement webElement : getListOfActiveFilters()) {
             if (webElement.getText().equals("Xiaomi")) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean isPriceFilterEnabled(int min, int max) {
+        for (WebElement webElement : getListOfActiveFilters()) {
+            if (webElement.getText().contains(min+" - "+max)) {
                 return true;
             }
         }

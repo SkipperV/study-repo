@@ -15,7 +15,7 @@ public class HeaderPage extends BasePage {
     private static final String SHOPPING_CART_BUTTON = "//button[@rzopencart]";
     private static final String MENU_CATEGORY_LAPTOPS_AND_COMPUTERS = "//a[contains(@class, 'js-menu-categories__link') and text()='Ноутбуки та комп’ютери']";
     private static final String MENU_CATEGORY_SMARTPHONES_TV_ELECTRONICS = "//a[contains(@class, 'js-menu-categories__link') and text()='Смартфони, ТВ і електроніка']";
-    private static final String MENU_SUBCATEGORY_PHONES = "//a[@class='menu__hidden-title' and text()='Телефони']";
+    private static final String MENU_SUBCATEGORY_LAPTOPS = "//a[@class='menu__hidden-title' and text()='Ноутбуки']";
     private static final String MENU_ITEM_LAPTOPS_ASUS = "//a[@class='menu__hidden-title' and text()='Ноутбуки']/..//*[text()=' Asus ']";
     private static final String MENU_ITEM_TABLETS_APPLE = "//a[@class='menu__hidden-title' and text()='Планшети']/..//*[text()=' Apple iPad ']";
     private static final String MENU_ITEM_PHONES_APPLE = "//a[@class='menu__hidden-title' and text()='Телефони']/..//*[text()=' Apple ']";
@@ -57,8 +57,8 @@ public class HeaderPage extends BasePage {
         return driver.findElement(By.xpath(MENU_CATEGORY_SMARTPHONES_TV_ELECTRONICS));
     }
 
-    public WebElement getMenuSubcategoryPhones() {
-        return driver.findElement(By.xpath(MENU_SUBCATEGORY_PHONES));
+    public WebElement getMenuSubcategoryLaptops() {
+        return driver.findElement(By.xpath(MENU_SUBCATEGORY_LAPTOPS));
     }
 
     public WebElement getMenuItemLaptopsAsus() {
@@ -96,12 +96,12 @@ public class HeaderPage extends BasePage {
                 .perform();
     }
 
-    public void openPhonesCategoryPage() throws InterruptedException {
+    public void openLaptopsCategoryPage() throws InterruptedException {
         openCatalog();
 
         new Actions(driver)
-                .moveToElement(getMenuCategorySmartphonesAndTVs())
-                .moveToElement(getMenuSubcategoryPhones())
+                .moveToElement(getMenuCategoryLaptopsAndPCs())
+                .moveToElement(getMenuSubcategoryLaptops())
                 .click()
                 .perform();
     }
@@ -126,7 +126,7 @@ public class HeaderPage extends BasePage {
                 .perform();
     }
 
-    public void writeInSearchBar(String text) {
+    public void typeInSearchBar(String text) {
         getSearchBar().sendKeys(text);
     }
 }

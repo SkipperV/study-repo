@@ -18,7 +18,7 @@ public class BrandFilterTest extends BaseTest {
         itemsListPage.clickFilterBrandXiaomi();
         itemsListPage.clickFilterSellerRozetka();
 
-        Assert.assertTrue(itemsListPage.doesEveryItemContainInName("Xiaomi"));
+        Assert.assertTrue(itemsListPage.doesEveryItemContainStringInName("Xiaomi"));
         Assert.assertTrue(itemsListPage.isFilterBrandXiaomiEnabled());
     }
 }
