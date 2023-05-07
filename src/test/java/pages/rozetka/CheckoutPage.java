@@ -62,14 +62,14 @@ public class CheckoutPage extends BasePage {
         return getVisibleElementByXpath(BUTTON_SAVE_CONTACTS);
     }
 
-    public List<WebElement> getRegisteredUserWarning() {
+    public WebElement getRegisteredUserWarning() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
         try {
             wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath(WARNING_REGISTERED_USER)));
         } catch (Exception e) {
             return null;
         }
-        return driver.findElements(By.xpath(WARNING_REGISTERED_USER));
+        return driver.findElement(By.xpath(WARNING_REGISTERED_USER));
     }
 
     public void typeSurname(String string) {
