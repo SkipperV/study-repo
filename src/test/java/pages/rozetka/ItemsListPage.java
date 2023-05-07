@@ -45,4 +45,13 @@ public class ItemsListPage extends BasePage {
     public void openPageOfFirstItem() {
         getListOfItemsNames().get(0).click();
     }
+
+    public boolean doesEveryItemContainInName(String string) {
+        for (WebElement itemName : getListOfItemsNames()) {
+            if (!itemName.getText().contains(string)) {
+                return false;
+            }
+        }
+        return true;
+    }
 }

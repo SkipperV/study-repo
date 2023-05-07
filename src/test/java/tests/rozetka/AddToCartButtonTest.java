@@ -7,7 +7,7 @@ import pages.rozetka.HeaderPage;
 import pages.rozetka.ItemMainPage;
 import pages.rozetka.ItemsListPage;
 
-public class AddToCartButtonTest extends BaseTest{
+public class AddToCartButtonTest extends BaseTest {
 
     @Test
     public void checkAddToCartButton() throws InterruptedException {
@@ -23,9 +23,9 @@ public class AddToCartButtonTest extends BaseTest{
         headerPage.openTabletsApplePage();
         itemsListPage.openPageOfFirstItem();
 
-        itemNameInPage=itemMainPage.getItemName();
+        itemNameInPage = itemMainPage.getItemName();
         itemMainPage.clickBuyButton();
-        itemNameInCart=cartPage.getFirstItemInCartName();
+        itemNameInCart = cartPage.getFirstItemInCartName();
 
         Assert.assertEquals(itemNameInPage, itemNameInCart);
         Assert.assertTrue(cartPage.getCheckoutButton().isEnabled());

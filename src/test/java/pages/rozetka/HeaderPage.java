@@ -77,6 +77,10 @@ public class HeaderPage extends BasePage {
         return driver.findElement(By.xpath(MENU_ITEM_POWERBANKS));
     }
 
+    public void clickSearchButton() {
+        getSearchButton().click();
+    }
+
     public void openCatalog() throws InterruptedException {
         getCatalogButton().click();
         Thread.sleep(200);
@@ -91,5 +95,9 @@ public class HeaderPage extends BasePage {
                 .moveToElement(getMenuItemTabletsAppleIPad())
                 .click()
                 .perform();
+    }
+
+    public void writeInSearchBar(String text) {
+        getSearchBar().sendKeys(text);
     }
 }
