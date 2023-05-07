@@ -7,7 +7,7 @@ import pages.rozetka.*;
 public class CheckoutContactsInfoTest extends BaseTest {
 
     @Test
-    public void checkOrderTextFields() {
+    public void checkOrderTextFields() throws InterruptedException {
         openPage("https://rozetka.com.ua/ua/");
 
         HeaderPage headerPage = new HeaderPage(driver);
@@ -24,18 +24,17 @@ public class CheckoutContactsInfoTest extends BaseTest {
         checkoutPage.typeSurname("1234567890");
         checkoutPage.typeName("1234567890");
         checkoutPage.typePhoneNumber("1234567890");
-        checkoutPage.typeEMail("1234567890");
+        checkoutPage.typeEmail("1234567890");
 
         Assert.assertTrue(checkoutPage.getSurNameInvalidInputMessage().isEnabled());
         Assert.assertTrue(checkoutPage.getNameInvalidInputMessage().isEnabled());
         Assert.assertTrue(checkoutPage.getPhoneNumberInvalidInputMessage().isEnabled());
-        Assert.assertTrue(checkoutPage.getEMailInvalidInputMessage().isEnabled());
+        Assert.assertTrue(checkoutPage.getEmailInvalidInputMessage().isEnabled());
 
-        checkoutPage.clearContactsInfoFields();
-        checkoutPage.typeSurname("абс");
-        checkoutPage.typeName("абс");
-        checkoutPage.typePhoneNumber("0950123445");
-        checkoutPage.typeEMail("test@test.com");
+        checkoutPage.clearNameSurnameContactsFields();
+        checkoutPage.typeSurname("Павло");
+        checkoutPage.typeName("Павло");
+        checkoutPage.typeRandomPhoneNumberAndEmail();
 
         Assert.assertTrue(checkoutPage.getSaveContactsButton().isEnabled());
     }
