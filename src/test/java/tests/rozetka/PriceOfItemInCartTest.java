@@ -7,7 +7,7 @@ import pages.rozetka.HeaderPage;
 import pages.rozetka.ItemMainPage;
 import pages.rozetka.ItemsListPage;
 
-public class PriceOfItemInCartTest extends BaseTest{
+public class PriceOfItemInCartTest extends BaseTest {
 
     @Test
     public void checkEqualityOfItemPrice() throws InterruptedException {
@@ -23,9 +23,9 @@ public class PriceOfItemInCartTest extends BaseTest{
         headerPage.openTabletsApplePage();
         itemsListPage.openPageOfFirstItem();
 
-        itemPriceInPage=itemMainPage.getItemPrice();
+        itemPriceInPage = itemMainPage.getItemPrice();
         itemMainPage.clickBuyButton();
-        itemPriceInCart=cartPage.getFirstItemInCartPrice();
+        itemPriceInCart = cartPage.getFirstItemInCartPrice();
 
         Assert.assertEquals(itemPriceInPage, itemPriceInCart);
     }

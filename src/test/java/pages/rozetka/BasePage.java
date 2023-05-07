@@ -24,6 +24,7 @@ public class BasePage {
 
     public List<WebElement> getListOfVisibleElementsByXpath(String element) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(element)));
         wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath(element)));
         return driver.findElements(By.xpath(element));
     }
