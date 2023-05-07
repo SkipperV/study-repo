@@ -7,6 +7,7 @@ import java.util.List;
 
 public class ItemsListPage extends BasePage {
 
+    private static final String PAGE_TITLE = "//h1[@class='catalog-heading ng-star-inserted']";
     private static final String SHOWN_ITEMS_QUANTITY = "//p[@class='catalog-selection__label ng-star-inserted']";
     private static final String SORTING_DROPLIST = "//select[@class='select-css ng-untouched ng-pristine ng-valid ng-star-inserted']";
     private static final String SORTING_DROPLIST_RULES_LIST = "//select/option";
@@ -33,6 +34,10 @@ public class ItemsListPage extends BasePage {
 
     public ItemsListPage(WebDriver driver) {
         super(driver);
+    }
+
+    public WebElement getTitle() {
+        return getVisibleElementByXpath(PAGE_TITLE);
     }
 
     public WebElement getQuantityOfShownItemsContainer() {
@@ -243,8 +248,11 @@ public class ItemsListPage extends BasePage {
         return true;
     }
 
-    public void openPageOfFirstItem() {
+    public void openPageOfFirstItem() throws InterruptedException {
+        new HeaderPage(driver).scrollTo(getTitle());
+
         getListOfNamesOfItems().get(0).click();
+        Thread.sleep(1000);
     }
 
     public void clickFilterSellerRozetka() throws InterruptedException {
@@ -300,7 +308,7 @@ public class ItemsListPage extends BasePage {
 
     public void clickFilterStatusOutOfStock() throws InterruptedException {
         getFilterStatusOutOfStock().click();
-        Thread.sleep(1000);
+        Thread.sleep(2000);
     }
 
     public void clickFilterStatusRanOut() throws InterruptedException {

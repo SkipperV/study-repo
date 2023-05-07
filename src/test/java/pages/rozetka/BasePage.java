@@ -3,6 +3,7 @@ package pages.rozetka;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -27,5 +28,11 @@ public class BasePage {
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(element)));
         wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath(element)));
         return driver.findElements(By.xpath(element));
+    }
+
+    public void scrollTo(WebElement webElement) {
+        new Actions(driver)
+                .scrollToElement(webElement)
+                .perform();
     }
 }

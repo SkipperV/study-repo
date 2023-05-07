@@ -7,6 +7,7 @@ import org.openqa.selenium.interactions.Actions;
 
 public class HeaderPage extends BasePage {
 
+    private static final String TOP_PROMO_PICTURE = "//img[@class='top-information__picture ng-star-inserted']";
     private static final String MENU_TOGGLE = "//button[@class='header__button ng-tns-c33-1']";
     private static final String MAIN_LOGO = "//a[@class='header__logo']";
     private static final String CATALOG = "//button[@id='fat-menu']";
