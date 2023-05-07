@@ -21,6 +21,8 @@ public class HeaderPage extends BasePage {
     private static final String MENU_ITEM_PHONES_APPLE = "//a[@class='menu__hidden-title' and text()='Телефони']/..//*[text()=' Apple ']";
     private static final String MENU_ITEM_POWERBANKS = "//a[@class='menu__hidden-title' and text()='Повербанки та зарядні станції']/..//*[text()=' Універсальні мобільні батареї ']";
 
+    Actions actions = new Actions(driver);
+
     public HeaderPage(WebDriver driver) {
         super(driver);
     }
@@ -88,18 +90,26 @@ public class HeaderPage extends BasePage {
 
     public void openTabletsApplePage() throws InterruptedException {
         openCatalog();
-        Actions actions = new Actions(driver);
 
-        actions
+        new Actions(driver)
                 .moveToElement(getMenuCategoryLaptopsAndPCs())
                 .moveToElement(getMenuItemTabletsAppleIPad())
                 .click()
                 .perform();
     }
 
+    public void openPhonesCategoryPage() throws InterruptedException {
+        openCatalog();
+
+        new Actions(driver)
+                .moveToElement(getMenuCategorySmartphonesAndTVs())
+                .moveToElement(getMenuSubcategoryPhones())
+                .click()
+                .perform();
+    }
+
     public void openPhonesApplePage() throws InterruptedException {
         openCatalog();
-        Actions actions = new Actions(driver);
 
         actions
                 .moveToElement(getMenuCategorySmartphonesAndTVs())

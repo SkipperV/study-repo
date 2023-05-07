@@ -7,12 +7,14 @@ import java.util.List;
 
 public class ItemsListPage extends BasePage {
 
+    private static final String SHOWN_ITEMS_QUANTITY = "//p[@class='catalog-selection__label ng-star-inserted']";
     private static final String ITEMS_NAMES_LIST = "//span[@class='goods-tile__title']";
     private static final String ITEMS_DISCOUNT_CURRENT_PRICES_LIST = "//div[@class='goods-tile__price price--red ng-star-inserted']//span[@class='goods-tile__price-value']";
     private static final String ITEMS_DISCOUNT_OLD_PRICES_LIST = "//div[contains(@class, 'goods-tile__price--old')]";
     private static final String ITEMS_ALL_CURRENT_PRICES_LIST = "//span[@class='goods-tile__price-value']";
     private static final String FILTERS_LIST = "//a[@class='checkbox-filter__link']";
     private static final String FILTERS_ITEMS_QUANTITY_LIST = "//a[@class='checkbox-filter__link']/span";
+    private static final String FILTER_BRAND_SAMSUNG = "//a[@data-id='Samsung']";
     private static final String FILTER_STATUS_IN_STOCK = "//a[@data-id='Є в наявності']";
     private static final String FILTER_STATUS_RUNNING_OUT = "//a[@data-id='Закінчується']";
     private static final String FILTER_STATUS_EXPECTED = "//a[@data-id='Очікується']";
@@ -21,6 +23,10 @@ public class ItemsListPage extends BasePage {
 
     public ItemsListPage(WebDriver driver) {
         super(driver);
+    }
+
+    public WebElement getQuantityOfShownItemsContainer() {
+        return getVisibleElementByXpath(SHOWN_ITEMS_QUANTITY);
     }
 
     public List<WebElement> getListOfNamesOfItems() {
@@ -47,6 +53,10 @@ public class ItemsListPage extends BasePage {
         return getListOfVisibleElementsByXpath(FILTERS_ITEMS_QUANTITY_LIST);
     }
 
+    public WebElement getFilterBrandSamsung() {
+        return getVisibleElementByXpath(FILTER_BRAND_SAMSUNG);
+    }
+
     public WebElement getFilterStatusInStock() {
         return getVisibleElementByXpath(FILTER_STATUS_IN_STOCK);
     }
@@ -67,8 +77,17 @@ public class ItemsListPage extends BasePage {
         return getVisibleElementByXpath(FILTER_STATUS_RAN_OUT);
     }
 
+    public int getQuantityOfShownItems() {
+        return Integer.parseInt(getQuantityOfShownItemsContainer().getText().split(" ")[1]);
+    }
+
     public void openPageOfFirstItem() {
         getListOfNamesOfItems().get(0).click();
+    }
+
+    public void checkFilterBrandSamsung() throws InterruptedException {
+        getFilterBrandSamsung().click();
+        Thread.sleep(1000);
     }
 
     public void checkFilterStatusInStock() throws InterruptedException {
