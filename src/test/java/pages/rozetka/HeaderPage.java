@@ -116,6 +116,16 @@ public class HeaderPage extends BasePage {
                 .perform();
     }
 
+    public void openPowerbanksPage() throws InterruptedException {
+        openCatalog();
+
+        new Actions(driver)
+                .moveToElement(getMenuCategorySmartphonesAndTVs())
+                .moveToElement(getMenuItemPowerbanks())
+                .click()
+                .perform();
+    }
+
     public void writeInSearchBar(String text) {
         getSearchBar().sendKeys(text);
     }
