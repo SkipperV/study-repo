@@ -26,6 +26,10 @@ public class CartPage extends BasePage {
         return getVisibleElementByXpath(CHECKOUT_BUTTON);
     }
 
+    public String getFirstItemNameInCart() {
+        return getListOfItemsNamesInCart().get(0).getText();
+    }
+
     public void clickCheckoutButton() {
         getCheckoutButton().click();
     }

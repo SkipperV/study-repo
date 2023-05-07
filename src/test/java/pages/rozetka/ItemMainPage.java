@@ -10,7 +10,7 @@ public class ItemMainPage extends BasePage {
     private static final String ITEM_COLORS = "//li[@class='var-options__item ng-star-inserted']";
     private static final String REVIEWS_TAB = "//a[text()=' Характеристики ']";
     private static final String BUY_BUTTON = "//span[@class='buy-button__label ng-star-inserted']";
-    private static final String ITEM_ID = "//span[@class='product__code-accent']";
+    private static final String ITEM_NAME = "//h1[@class='product__title']";
 
     public ItemMainPage(WebDriver driver) {
         super(driver);
@@ -28,8 +28,12 @@ public class ItemMainPage extends BasePage {
         return getVisibleElementByXpath(BUY_BUTTON);
     }
 
-    public WebElement getProductID() {
-        return getVisibleElementByXpath(ITEM_ID);
+    public WebElement getItemTitle() {
+        return getVisibleElementByXpath(ITEM_NAME);
+    }
+
+    public String getItemName() {
+        return getItemTitle().getText().strip();
     }
 
     public void clickBuyButton() {
