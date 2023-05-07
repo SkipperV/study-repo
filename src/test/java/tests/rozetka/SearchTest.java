@@ -15,9 +15,9 @@ public class SearchTest extends BaseTest {
         ItemsListPage itemsListPage = new ItemsListPage(driver);
         String searchText = "iPhone 14";
 
-        headerPage.writeInSearchBar(searchText);
+        headerPage.typeInSearchBar(searchText);
         headerPage.clickSearchButton();
 
-        Assert.assertTrue(itemsListPage.doesEveryItemContainInName(searchText));
+        Assert.assertTrue(itemsListPage.doesEveryItemContainStringInName(searchText));
     }
 }
