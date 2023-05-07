@@ -72,20 +72,20 @@ public class CheckoutPage extends BasePage {
         return driver.findElements(By.xpath(WARNING_REGISTERED_USER));
     }
 
-    public void typeSurname(String input) {
-        getSurnameTextField().sendKeys(input);
+    public void typeSurname(String string) {
+        getSurnameTextField().sendKeys(string);
     }
 
-    public void typeName(String input) {
-        getNameTextField().sendKeys(input);
+    public void typeName(String string) {
+        getNameTextField().sendKeys(string);
     }
 
     public void typePhoneNumber(String string) {
         getPhoneNumberTextField().sendKeys(string);
     }
 
-    public void typeEmail(String input) {
-        getEmailTextField().sendKeys(input);
+    public void typeEmail(String string) {
+        getEmailTextField().sendKeys(string);
     }
 
     public void typeRandomPhoneNumberAndEmail() {
@@ -95,8 +95,8 @@ public class CheckoutPage extends BasePage {
             getPhoneNumberTextField().clear();
             getEmailTextField().clear();
 
-            getPhoneNumberTextField().sendKeys("093" + randomizedInt);
-            getEmailTextField().sendKeys(randomizedInt + "@test.com");
+            typePhoneNumber("093" + randomizedInt);
+            typeEmail(randomizedInt + "@test.com");
         } while (getRegisteredUserWarning() != null);
     }
 
