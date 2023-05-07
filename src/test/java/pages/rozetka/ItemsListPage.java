@@ -16,7 +16,9 @@ public class ItemsListPage extends BasePage {
     private static final String FILTERS_LIST = "//a[@class='checkbox-filter__link']";
     private static final String FILTERS_ITEMS_QUANTITY_LIST = "//a[@class='checkbox-filter__link']/span";
     private static final String FILTERS_ACTIVE_LIST = "//a[@class='catalog-selection__link']";
+    private static final String FILTERS_SELLER_ROZETKA = "//a[@data-id='Rozetka']";
     private static final String FILTER_BRAND_SAMSUNG = "//a[@data-id='Samsung']";
+    private static final String FILTER_BRAND_XIAOMI = "//a[@data-id='Xiaomi']";
     private static final String FILTER_STATUS_IN_STOCK = "//a[@data-id='Є в наявності']";
     private static final String FILTER_STATUS_RUNNING_OUT = "//a[@data-id='Закінчується']";
     private static final String FILTER_STATUS_EXPECTED = "//a[@data-id='Очікується']";
@@ -63,8 +65,16 @@ public class ItemsListPage extends BasePage {
         return getListOfVisibleElementsByXpath(FILTERS_ACTIVE_LIST);
     }
 
+    private WebElement getFilterSellerRozetka() {
+        return getVisibleElementByXpath(FILTERS_SELLER_ROZETKA);
+    }
+
     public WebElement getFilterBrandSamsung() {
         return getVisibleElementByXpath(FILTER_BRAND_SAMSUNG);
+    }
+
+    public WebElement getFilterBrandXiaomi() {
+        return getVisibleElementByXpath(FILTER_BRAND_XIAOMI);
     }
 
     public WebElement getFilterStatusInStock() {
@@ -99,8 +109,18 @@ public class ItemsListPage extends BasePage {
         getListOfNamesOfItems().get(0).click();
     }
 
+    public void clickFilterSellerRozetka() throws InterruptedException {
+        getFilterSellerRozetka().click();
+        Thread.sleep(1000);
+    }
+
     public void clickFilterBrandSamsung() throws InterruptedException {
         getFilterBrandSamsung().click();
+        Thread.sleep(1000);
+    }
+
+    public void clickFilterBrandXiaomi() throws InterruptedException {
+        getFilterBrandXiaomi().click();
         Thread.sleep(1000);
     }
 
@@ -163,6 +183,15 @@ public class ItemsListPage extends BasePage {
     public boolean isFilterStatusInStockEnabled() {
         for (WebElement webElement : getListOfActiveFilters()) {
             if (webElement.getText().equals("Є в наявності")) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean isFilterBrandXiaomiEnabled() {
+        for (WebElement webElement : getListOfActiveFilters()) {
+            if (webElement.getText().equals("Xiaomi")) {
                 return true;
             }
         }
