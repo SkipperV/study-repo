@@ -12,6 +12,7 @@ public class ItemsListPage extends BasePage {
     private static final String ITEMS_DISCOUNT_CURRENT_PRICES_LIST = "//div[@class='goods-tile__price price--red ng-star-inserted']//span[@class='goods-tile__price-value']";
     private static final String ITEMS_DISCOUNT_OLD_PRICES_LIST = "//div[contains(@class, 'goods-tile__price--old')]";
     private static final String ITEMS_ALL_CURRENT_PRICES_LIST = "//span[@class='goods-tile__price-value']";
+    private static final String ITEMS_AVAILABILITY_AVAILABLE = "//div[contains(@class, 'goods-tile__availability--available')]";
     private static final String FILTERS_LIST = "//a[@class='checkbox-filter__link']";
     private static final String FILTERS_ITEMS_QUANTITY_LIST = "//a[@class='checkbox-filter__link']/span";
     private static final String FILTER_BRAND_SAMSUNG = "//a[@data-id='Samsung']";
@@ -43,6 +44,10 @@ public class ItemsListPage extends BasePage {
 
     public List<WebElement> getListOfAllCurrentPricesOfItems() {
         return getListOfVisibleElementsByXpath(ITEMS_ALL_CURRENT_PRICES_LIST);
+    }
+
+    public List<WebElement> getListOfItemsAvailableStatuses() {
+        return getListOfVisibleElementsByXpath(ITEMS_AVAILABILITY_AVAILABLE);
     }
 
     public List<WebElement> getListOfFilters() {
@@ -79,6 +84,10 @@ public class ItemsListPage extends BasePage {
 
     public int getQuantityOfShownItems() {
         return Integer.parseInt(getQuantityOfShownItemsContainer().getText().split(" ")[1]);
+    }
+
+    public int getQuantityOfAvailableItems() {
+        return getListOfItemsAvailableStatuses().size();
     }
 
     public void openPageOfFirstItem() {
