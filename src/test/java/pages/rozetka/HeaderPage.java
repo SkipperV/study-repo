@@ -82,6 +82,11 @@ public class HeaderPage extends BasePage {
         getSearchButton().click();
     }
 
+    public void openMenu() throws InterruptedException {
+        getMenuToggle().click();
+        Thread.sleep(1000);
+    }
+
     public void openCatalog() throws InterruptedException {
         getCatalogButton().click();
         Thread.sleep(200);

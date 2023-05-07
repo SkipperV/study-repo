@@ -1,6 +1,5 @@
 package pages.rozetka;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
@@ -14,10 +13,18 @@ public class MenuPage extends BasePage {
     }
 
     public WebElement getChangeCityButton() {
-        return driver.findElement(By.xpath(CHANGE_CITY_BUTTON));
+        return getVisibleElementByXpath(CHANGE_CITY_BUTTON);
     }
 
     public WebElement getPickedCity() {
-        return driver.findElement(By.xpath(PICKED_CITY));
+        return getVisibleElementByXpath(PICKED_CITY);
+    }
+
+    public String getPickedCityString() {
+        return getPickedCity().getText();
+    }
+
+    public void pickCity() {
+        getChangeCityButton().click();
     }
 }
