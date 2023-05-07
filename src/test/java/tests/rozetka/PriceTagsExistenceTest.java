@@ -20,7 +20,7 @@ public class PriceTagsExistenceTest extends BaseTest {
         ItemsListPage itemsListPage = new ItemsListPage(driver);
 
         headerPage.openPhonesApplePage();
-        itemsListPage.checkFilterStatusInStock();
+        itemsListPage.clickFilterStatusInStock();
 
         items = itemsListPage.getListOfNamesOfItems();
         priceTags = itemsListPage.getListOfAllCurrentPricesOfItems();

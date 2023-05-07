@@ -15,6 +15,7 @@ public class ItemsListPage extends BasePage {
     private static final String ITEMS_AVAILABILITY_AVAILABLE = "//div[contains(@class, 'goods-tile__availability--available')]";
     private static final String FILTERS_LIST = "//a[@class='checkbox-filter__link']";
     private static final String FILTERS_ITEMS_QUANTITY_LIST = "//a[@class='checkbox-filter__link']/span";
+    private static final String FILTERS_ACTIVE_LIST = "//a[@class='catalog-selection__link']";
     private static final String FILTER_BRAND_SAMSUNG = "//a[@data-id='Samsung']";
     private static final String FILTER_STATUS_IN_STOCK = "//a[@data-id='Є в наявності']";
     private static final String FILTER_STATUS_RUNNING_OUT = "//a[@data-id='Закінчується']";
@@ -58,6 +59,10 @@ public class ItemsListPage extends BasePage {
         return getListOfVisibleElementsByXpath(FILTERS_ITEMS_QUANTITY_LIST);
     }
 
+    public List<WebElement> getListOfActiveFilters() {
+        return getListOfVisibleElementsByXpath(FILTERS_ACTIVE_LIST);
+    }
+
     public WebElement getFilterBrandSamsung() {
         return getVisibleElementByXpath(FILTER_BRAND_SAMSUNG);
     }
@@ -94,32 +99,32 @@ public class ItemsListPage extends BasePage {
         getListOfNamesOfItems().get(0).click();
     }
 
-    public void checkFilterBrandSamsung() throws InterruptedException {
+    public void clickFilterBrandSamsung() throws InterruptedException {
         getFilterBrandSamsung().click();
         Thread.sleep(1000);
     }
 
-    public void checkFilterStatusInStock() throws InterruptedException {
+    public void clickFilterStatusInStock() throws InterruptedException {
         getFilterStatusInStock().click();
         Thread.sleep(1000);
     }
 
-    public void checkFilterStatusRunningOut() throws InterruptedException {
+    public void clickFilterStatusRunningOut() throws InterruptedException {
         getFilterStatusRunningOut().click();
         Thread.sleep(1000);
     }
 
-    public void checkFilterStatusExpected() throws InterruptedException {
+    public void clickFilterStatusExpected() throws InterruptedException {
         getFilterStatusExpected().click();
         Thread.sleep(1000);
     }
 
-    public void checkFilterStatusOutOfStock() throws InterruptedException {
+    public void clickFilterStatusOutOfStock() throws InterruptedException {
         getFilterStatusOutOfStock().click();
         Thread.sleep(1000);
     }
 
-    public void checkFilterStatusRanOut() throws InterruptedException {
+    public void clickFilterStatusRanOut() throws InterruptedException {
         getFilterStatusRanOut().click();
         Thread.sleep(1000);
     }
@@ -153,5 +158,14 @@ public class ItemsListPage extends BasePage {
             }
         }
         return true;
+    }
+
+    public boolean isFilterStatusInStockEnabled() {
+        for (WebElement webElement : getListOfActiveFilters()) {
+            if (webElement.getText().equals("Є в наявності")) {
+                return true;
+            }
+        }
+        return false;
     }
 }

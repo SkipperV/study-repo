@@ -19,7 +19,7 @@ public class FiltersTest extends BaseTest {
         headerPage.openPhonesApplePage();
         shownItems_1 = itemsListPage.getQuantityOfShownItems();
 
-        itemsListPage.checkFilterBrandSamsung();
+        itemsListPage.clickFilterBrandSamsung();
         shownItems_2 = itemsListPage.getQuantityOfShownItems();
 
         Assert.assertNotEquals(shownItems_1, shownItems_2);
