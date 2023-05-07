@@ -97,6 +97,17 @@ public class HeaderPage extends BasePage {
                 .perform();
     }
 
+    public void openPhonesApplePage() throws InterruptedException {
+        openCatalog();
+        Actions actions = new Actions(driver);
+
+        actions
+                .moveToElement(getMenuCategorySmartphonesAndTVs())
+                .moveToElement(getMenuItemPhonesApple())
+                .click()
+                .perform();
+    }
+
     public void writeInSearchBar(String text) {
         getSearchBar().sendKeys(text);
     }
