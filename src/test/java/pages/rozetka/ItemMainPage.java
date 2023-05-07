@@ -21,7 +21,7 @@ public class ItemMainPage extends BasePage {
         return getVisibleElementByXpath(REVIEWS_TAB);
     }
 
-    public List<WebElement> getItemColorsList() {
+    public List<WebElement> getListOfItemColors() {
         return getListOfVisibleElementsByXpath(ITEM_COLORS);
     }
 

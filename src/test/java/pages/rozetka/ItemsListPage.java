@@ -18,19 +18,19 @@ public class ItemsListPage extends BasePage {
         super(driver);
     }
 
-    public List<WebElement> getListOfItemsNames() {
+    public List<WebElement> getListOfNamesOfItems() {
         return getListOfVisibleElementsByXpath(ITEMS_NAMES_LIST);
     }
 
-    public List<WebElement> getListOfItemsDiscountCurrentPrices() {
+    public List<WebElement> getListOfCurrentPricesOfItemsOnSale() {
         return getListOfVisibleElementsByXpath(ITEMS_DISCOUNT_CURRENT_PRICES_LIST);
     }
 
-    public List<WebElement> getListOfItemsDiscountOldPrices() {
+    public List<WebElement> getListOfOldPricesOfItemsOnSale() {
         return getListOfVisibleElementsByXpath(ITEMS_DISCOUNT_OLD_PRICES_LIST);
     }
 
-    public List<WebElement> getListOfItemsAllCurrentPrices() {
+    public List<WebElement> getListOfAllCurrentPricesOfItems() {
         return getListOfVisibleElementsByXpath(ITEMS_ALL_CURRENT_PRICES_LIST);
     }
 
@@ -43,12 +43,34 @@ public class ItemsListPage extends BasePage {
     }
 
     public void openPageOfFirstItem() {
-        getListOfItemsNames().get(0).click();
+        getListOfNamesOfItems().get(0).click();
     }
 
     public boolean doesEveryItemContainInName(String string) {
-        for (WebElement itemName : getListOfItemsNames()) {
+        for (WebElement itemName : getListOfNamesOfItems()) {
             if (!itemName.getText().contains(string)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean doesEveryItemOnSaleHaveLowerCurrentPrice() {
+        List<WebElement> oldPrices = getListOfOldPricesOfItemsOnSale();
+        List<WebElement> currentPrices = getListOfCurrentPricesOfItemsOnSale();
+
+        for (int i = 0; i < oldPrices.size(); i++) {
+            int oldPrice = Integer
+                    .parseInt(oldPrices.get(i)
+                            .getText()
+                            .replace(" ", "")
+                            .replace("₴", ""));
+            int currentPrice = Integer
+                    .parseInt(currentPrices.get(i)
+                            .getText()
+                            .replace(" ", "")
+                            .replace("₴", ""));
+            if (currentPrice >= oldPrice) {
                 return false;
             }
         }
