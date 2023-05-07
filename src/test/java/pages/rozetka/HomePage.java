@@ -17,4 +17,8 @@ public class HomePage extends BasePage {
     public List<WebElement> getItemsTitlesList() {
         return driver.findElements(By.xpath(ITEMS_TITLES_LIST));
     }
+
+    public void openPageOfFirstItem() {
+        getItemsTitlesList().get(0).click();
+    }
 }
