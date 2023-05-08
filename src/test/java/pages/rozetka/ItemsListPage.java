@@ -22,6 +22,7 @@ public class ItemsListPage extends BasePage {
     private static final String FILTERS_ITEMS_QUANTITY_LIST = "//a[@class='checkbox-filter__link']/span";
     private static final String FILTERS_ACTIVE_LIST = "//a[@class='catalog-selection__link']";
     private static final String FILTERS_SELLER_ROZETKA = "//a[@data-id='Rozetka']";
+    private static final String FILTER_BRAND_APPLE = "//a[@data-id='Apple']";
     private static final String FILTER_BRAND_SAMSUNG = "//a[@data-id='Samsung']";
     private static final String FILTER_BRAND_XIAOMI = "//a[@data-id='Xiaomi']";
     private static final String FILTER_PRICE_MINIMUM = "//input[@formcontrolname='min']";
@@ -79,7 +80,8 @@ public class ItemsListPage extends BasePage {
 
 
     public List<WebElement> getListOfFilters() {
-        return getListOfVisibleElementsByXpath(FILTERS_LIST);
+        getVisibleElementByXpath(FILTERS_ITEMS_QUANTITY_LIST);
+        return driver.findElements(By.xpath(FILTERS_LIST));
     }
 
     public List<WebElement> getListOfFiltersItemsQuantity() {
@@ -93,6 +95,10 @@ public class ItemsListPage extends BasePage {
 
     private WebElement getFilterSellerRozetka() {
         return getVisibleElementByXpath(FILTERS_SELLER_ROZETKA);
+    }
+
+    public WebElement getFilterBrandApple() {
+        return getVisibleElementByXpath(FILTER_BRAND_APPLE);
     }
 
     public WebElement getFilterBrandSamsung() {
@@ -145,6 +151,28 @@ public class ItemsListPage extends BasePage {
 
     public int getQuantityOfWaitingForSupplyItems() {
         return getListOfItemsWaitingForSupplyStatuses().size();
+    }
+
+    public int getFilterPosition(String filterName) {
+        List<WebElement> listOfFilters = getListOfFilters();
+
+        for (int i = 0; i < listOfFilters.size(); i++) {
+            if (listOfFilters.get(i).getText().contains(filterName)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public int getFilterItemsQuantity(int i) {
+        List<WebElement> listOfFiltersItemsQuantity = getListOfFiltersItemsQuantity();
+        return Integer.parseInt(
+                listOfFiltersItemsQuantity
+                        .get(i)
+                        .getText()
+                        .strip()
+                        .replace("(", "")
+                        .replace(")", ""));
     }
 
     public boolean doesEveryItemContainStringInName(String string) {
@@ -269,6 +297,11 @@ public class ItemsListPage extends BasePage {
 
     public void clickFilterSellerRozetka() throws InterruptedException {
         getFilterSellerRozetka().click();
+        Thread.sleep(1000);
+    }
+
+    public void clickFilterBrandApple() throws InterruptedException {
+        getFilterBrandApple().click();
         Thread.sleep(1000);
     }
 
