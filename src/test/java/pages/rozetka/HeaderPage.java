@@ -17,6 +17,7 @@ public class HeaderPage extends BasePage {
     private static final String MENU_CATEGORY_LAPTOPS_AND_COMPUTERS = "//a[contains(@class, 'js-menu-categories__link') and text()='Ноутбуки та комп’ютери']";
     private static final String MENU_CATEGORY_SMARTPHONES_TV_ELECTRONICS = "//a[contains(@class, 'js-menu-categories__link') and text()='Смартфони, ТВ і електроніка']";
     private static final String MENU_SUBCATEGORY_LAPTOPS = "//a[@class='menu__hidden-title' and text()='Ноутбуки']";
+    private static final String MENU_SUBCATEGORY_TABLETS = "//a[@class='menu__hidden-title' and text()='Планшети']";
     private static final String MENU_ITEM_LAPTOPS_ASUS = "//a[@class='menu__hidden-title' and text()='Ноутбуки']/..//*[text()=' Asus ']";
     private static final String MENU_ITEM_TABLETS_APPLE = "//a[@class='menu__hidden-title' and text()='Планшети']/..//*[text()=' Apple iPad ']";
     private static final String MENU_ITEM_PHONES_APPLE = "//a[@class='menu__hidden-title' and text()='Телефони']/..//*[text()=' Apple ']";
@@ -64,6 +65,10 @@ public class HeaderPage extends BasePage {
 
     public WebElement getMenuSubcategoryLaptops() {
         return driver.findElement(By.xpath(MENU_SUBCATEGORY_LAPTOPS));
+    }
+
+    public WebElement getMenuSubcategoryTablets() {
+        return driver.findElement(By.xpath(MENU_SUBCATEGORY_TABLETS));
     }
 
     public WebElement getMenuItemLaptopsAsus() {
@@ -116,6 +121,16 @@ public class HeaderPage extends BasePage {
         new Actions(driver)
                 .moveToElement(getMenuCategoryLaptopsAndPCs())
                 .moveToElement(getMenuSubcategoryLaptops())
+                .click()
+                .perform();
+    }
+
+    public void openTabletsCategoryPage() throws InterruptedException {
+        openCatalog();
+
+        new Actions(driver)
+                .moveToElement(getMenuCategoryLaptopsAndPCs())
+                .moveToElement(getMenuSubcategoryTablets())
                 .click()
                 .perform();
     }
