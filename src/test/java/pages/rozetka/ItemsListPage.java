@@ -82,7 +82,7 @@ public class ItemsListPage extends BasePage {
         return getListOfVisibleElementsByXpath(FILTERS_LIST);
     }
 
-    public List<WebElement> getListOfFiltersItemsQuantity() throws InterruptedException {
+    public List<WebElement> getListOfFiltersItemsQuantity() {
         getVisibleElementByXpath(FILTERS_ITEMS_QUANTITY_LIST);
         return driver.findElements(By.xpath(FILTERS_ITEMS_QUANTITY_LIST));
     }
@@ -250,7 +250,7 @@ public class ItemsListPage extends BasePage {
         return true;
     }
 
-    public boolean doesAnyShownFilterHaveZeroItems() throws InterruptedException {
+    public boolean doesAnyShownFilterHaveZeroItems() {
         List<WebElement> listOfFiltersItemsQuantity = getListOfFiltersItemsQuantity();
         for (WebElement webElement : listOfFiltersItemsQuantity) {
             if (webElement.getText().equals("(0)")) {
