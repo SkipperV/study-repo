@@ -27,8 +27,8 @@ public class FooterPage extends BasePage {
         Actions actions = new Actions(driver);
         Thread.sleep(1000);
         actions.moveToElement(new ItemMainPage(driver).getBuyButton());
+
         for (int i = 0; i < 3; i++) {
-//        while (!getGooglePlayLink().isDisplayed()) {
             jse.executeScript("window.scrollBy(0,document.body.scrollHeight)", "");
         }
         actions.moveToElement(getGooglePlayLink()).click().perform();
@@ -41,10 +41,8 @@ public class FooterPage extends BasePage {
         actions.moveToElement(new ItemMainPage(driver).getBuyButton());
 
         for (int i = 0; i < 3; i++) {
-//        while (!getGooglePlayLink().isDisplayed()) {
             jse.executeScript("window.scrollBy(0,document.body.scrollHeight)", "");
         }
         actions.moveToElement(getAppleStoreLink()).click().perform();
-        Thread.sleep(1000);
     }
 }
