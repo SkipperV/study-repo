@@ -1,5 +1,6 @@
 package pages.rozetka;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
@@ -81,8 +82,9 @@ public class ItemsListPage extends BasePage {
         return getListOfVisibleElementsByXpath(FILTERS_LIST);
     }
 
-    public List<WebElement> getListOfFiltersItemsQuantity() {
-        return getListOfVisibleElementsByXpath(FILTERS_ITEMS_QUANTITY_LIST);
+    public List<WebElement> getListOfFiltersItemsQuantity() throws InterruptedException {
+        getVisibleElementByXpath(FILTERS_ITEMS_QUANTITY_LIST);
+        return driver.findElements(By.xpath(FILTERS_ITEMS_QUANTITY_LIST));
     }
 
     public List<WebElement> getListOfActiveFilters() {
@@ -246,6 +248,16 @@ public class ItemsListPage extends BasePage {
             prevPrice = price;
         }
         return true;
+    }
+
+    public boolean doesAnyShownFilterHaveZeroItems() throws InterruptedException {
+        List<WebElement> listOfFiltersItemsQuantity = getListOfFiltersItemsQuantity();
+        for (WebElement webElement : listOfFiltersItemsQuantity) {
+            if (webElement.getText().equals("(0)")) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void openPageOfFirstItem() throws InterruptedException {
