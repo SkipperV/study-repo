@@ -7,8 +7,7 @@ import org.openqa.selenium.interactions.Actions;
 import java.util.List;
 
 public class ItemMainPage extends BasePage {
-    private static final String ITEM_COLORS = "//li[@class='var-options__item ng-star-inserted']";
-    private static final String REVIEWS_TAB = "//a[text()=' Характеристики ']";
+    private static final String ITEM_OTHER_COLORS = "//a[@class='var-options__color ng-star-inserted']";
     private static final String BUY_BUTTON = "//span[@class='buy-button__label ng-star-inserted']";
     private static final String ITEM_NAME = "//h1[@class='product__title']";
     private static final String ITEM_CURRENT_PRICE = "//p[contains(@class, 'product-price__big')]";
@@ -18,16 +17,12 @@ public class ItemMainPage extends BasePage {
         super(driver);
     }
 
-    public WebElement getReviewsTab() {
-        return getVisibleElementByXpath(REVIEWS_TAB);
-    }
-
     public WebElement getNotifyWhenAvailableButton() {
         return getVisibleElementByXpath(NOTIFY_WHEN_AVAILABLE_BUTTON);
     }
 
-    public List<WebElement> getListOfItemColors() {
-        return getListOfVisibleElementsByXpath(ITEM_COLORS);
+    public List<WebElement> getListOfAvailableOtherItemColors() {
+        return getListOfVisibleElementsByXpath(ITEM_OTHER_COLORS);
     }
 
     public WebElement getBuyButton() {
@@ -53,5 +48,10 @@ public class ItemMainPage extends BasePage {
     public void clickBuyButton() {
         Actions actions = new Actions(driver);
         actions.moveToElement(getBuyButton()).click().perform();
+    }
+
+    public void openAnotherColoredItemPage() throws InterruptedException {
+        getListOfAvailableOtherItemColors().get(0).click();
+        Thread.sleep(1000);
     }
 }
