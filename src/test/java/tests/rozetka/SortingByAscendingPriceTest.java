@@ -5,7 +5,7 @@ import org.testng.annotations.Test;
 import pages.rozetka.HeaderPage;
 import pages.rozetka.ItemsListPage;
 
-public class SortingByPriceTest extends BaseTest {
+public class SortingByAscendingPriceTest extends BaseTest {
 
     @Test
     public void checkSortingByAscendingPrice() throws InterruptedException {
