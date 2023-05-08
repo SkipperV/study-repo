@@ -12,6 +12,7 @@ public class HeaderPage extends BasePage {
     private static final String CATALOG = "//button[@id='fat-menu']";
     private static final String SEARCH_BAR = "//input[@name='search']";
     private static final String SEARCH_BUTTON = "//button[@class='button button_color_green button_size_medium search-form__submit ng-star-inserted']";
+    private static final String LANGUAGE_SWITCH = "//a[@_ngcontent-rz-client-c17]";
     private static final String SHOPPING_CART_BUTTON = "//button[@rzopencart]";
     private static final String MENU_CATEGORY_LAPTOPS_AND_COMPUTERS = "//a[contains(@class, 'js-menu-categories__link') and text()='Ноутбуки та комп’ютери']";
     private static final String MENU_CATEGORY_SMARTPHONES_TV_ELECTRONICS = "//a[contains(@class, 'js-menu-categories__link') and text()='Смартфони, ТВ і електроніка']";
@@ -43,6 +44,10 @@ public class HeaderPage extends BasePage {
 
     public WebElement getSearchButton() {
         return driver.findElement(By.xpath(SEARCH_BUTTON));
+    }
+
+    public WebElement getLanguageSwitch() {
+        return driver.findElement(By.xpath(LANGUAGE_SWITCH));
     }
 
     public WebElement getShoppingCartButton() {
@@ -137,5 +142,9 @@ public class HeaderPage extends BasePage {
 
     public void typeInSearchBar(String text) {
         getSearchBar().sendKeys(text);
+    }
+
+    public void switchLanguage() {
+        getLanguageSwitch().click();
     }
 }
